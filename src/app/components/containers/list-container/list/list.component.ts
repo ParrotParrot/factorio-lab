@@ -197,6 +197,15 @@ export class ListComponent implements OnInit, AfterViewInit {
     // Now that component is loaded, try navigating to the fragment
     try {
       document.querySelector('#' + this.fragment).scrollIntoView();
+      if (this.fragment) {
+        const step = this.steps.find(
+          (s) => s.itemId === this.fragment || s.recipeId === this.fragment
+        );
+        if (step && this.details[step.id]?.length) {
+          this.expanded[step.id] = this.details[step.id][0];
+          this.ref.detectChanges();
+        }
+      }
     } catch (e) {}
   }
 
